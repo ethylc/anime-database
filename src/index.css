@@ -5,9 +5,86 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #282c34;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+header{
+  text-align: center;
+  color:white;
+}
+
+main{
+  width: 100%;
+  max-width: 75%;
+  margin: auto;
+}
+
+section{
+  padding:15px;
+}
+
+.searchbox{
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background: none;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.card{
+  position: relative;
+  width:320px;
+  min-width: 250px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  margin:15px;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+}
+
+h3{
+  margin:0 !important;
+  padding:15px;
+  height:auto;
+}
+
+.dis .card h3{
+  background: #445565;
+  color:white;
+  transition: 0.4s ease-in-out;
+}
+
+.dis .card:hover h3{
+  background: #fff;
+  color:#223343;
+}
+
+.card-img-overlay {
+  position: absolute;
+  height:50px;
+  width: 100%;
+  bottom: 0;
+  padding: 1.25rem;
+  color: white;
+  background-color: rgba(0,0,0, 0.5);
+}
+
+.dis{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin:20px 0px 50px 0px;
 }
