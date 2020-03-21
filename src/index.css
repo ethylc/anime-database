@@ -41,9 +41,12 @@ section{
 
 .card{
   position: relative;
-  width:320px;
   min-width: 250px;
-  height: 500px;
+  max-width: 250px;
+  width: 250px;
+  height: 450px;
+  max-height: 450px;
+  min-height: 450px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -83,8 +86,26 @@ h3{
 }
 
 .dis{
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   margin:20px 0px 50px 0px;
 }
+
+h1{
+  color: white;
+  margin-left: 15px;
+  font-weight: normal;
+}
+
+.category-row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -ms-overflow-style: none;
+}
+
+.category-row::-webkit-scrollbar {
+  display: none;
+}
+

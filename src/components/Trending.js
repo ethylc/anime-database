@@ -2,8 +2,8 @@ import React from 'react'
 import Card from './Card'
 
 const TRENDING_QUERY =  `
-query ($page: Int, $perPage:Int) {
-    Page (page:$page, perPage:$perPage){
+query ($page: Int) {
+    Page (page:$page){
         mediaTrends{
             media{
                 id
@@ -12,6 +12,7 @@ query ($page: Int, $perPage:Int) {
                     english
                     native
                 }
+                format
                 coverImage{
                     large
                 }
@@ -27,8 +28,7 @@ class Trending extends React.Component{
         super(props)
         const query = TRENDING_QUERY
         const variables = {
-            page: 1,
-            perPage: 20
+            page: 1
         }
         const options = {
             method: 'POST',
@@ -63,8 +63,16 @@ class Trending extends React.Component{
     }
     
     handleData = (data) => {
-        this.setState( {result: data} )
-        console.log( this.result );
+        const categories = data.data.Page.mediaTrends
+        //.map(({media})=> media)
+        .reduce((acc, media)=>{
+            const {format} = media.media;
+            if(acc[format] === undefined) acc[format] = [];
+            acc[format].push(media);
+            return acc;
+        }, {});
+        this.setState( {result: categories} )
+        //const printlog = Object.keys(categories).map(cat => categories[cat].map(med => med.media.id));
     }
     
     handleError = (error) => {
@@ -72,11 +80,12 @@ class Trending extends React.Component{
     }
     render(){
         return(
-            <div className="dis">
-                {this.state.result ? this.state.result.data.Page.mediaTrends.map( ({media}) => <Card result = {media} key={media.id}></Card>) : null}
+            <div className = "dis">
+                {/* { this.state.result ? this.state.result.data.Page.mediaTrends.map( ({media}) => <Card result = {media} key = {media.id}></Card>) : null} */}
+                {this.state.result ? Object.keys(this.state.result).map( title => <div><h1>{title}</h1> 
+                <div className = "category-row">{this.state.result[title].map( media => <Card result = {media.media} key = {media.media.id}></Card>)} </div></div>) : null }
             </div>
         )
     }
-
 }
 export default Trending
