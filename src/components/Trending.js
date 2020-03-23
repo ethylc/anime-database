@@ -82,7 +82,7 @@ class Trending extends React.Component{
         return(
             <div className = "dis">
                 {/* { this.state.result ? this.state.result.data.Page.mediaTrends.map( ({media}) => <Card result = {media} key = {media.id}></Card>) : null} */}
-                {this.state.result ? Object.keys(this.state.result).map( title => <div><h1>{title}</h1> 
+                {this.state.result ? Object.keys(this.state.result).map( title => <div key = {title}><h1>{title}</h1> 
                 <div className = "category-row">{this.state.result[title].map( media => <Card result = {media.media} key = {media.media.id}></Card>)} </div></div>) : null }
             </div>
         )
