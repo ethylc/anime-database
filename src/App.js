@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import Search from './components/SearchBox'
 import Results from './components/Results'
 import {getSeason} from './functions/utils'
+import Info from './components/Info'
 
 function App() {
   const [state, setState] = useState({
-    results: [],
     selected: {},
     search: undefined,
     year: new Date().getFullYear(),
@@ -23,7 +23,7 @@ function App() {
         setState(prevState => {
           return {...prevState, search: undefined, year: new Date().getFullYear(), season: getSeason()}
         })
-      }else if (state.s === undefined) {
+      } else if (state.s === undefined) {
         setState(prevState => {
           return {...prevState, year: new Date().getFullYear(), season: getSeason()}
         })
@@ -35,6 +35,18 @@ function App() {
     }
   }
 
+  const selectedCard = id => (
+    setState(prevState => {
+      return {...prevState, selected: id}
+    })
+  )
+
+  const close = () => (
+    setState(prevState => {
+      return {...prevState, selected: {}}
+    })
+  )
+
   return (
     <div className="App">
       <header className="App-header">
@@ -42,7 +54,8 @@ function App() {
       </header>
       <main>
         <Search handleInput={handleInput} search={search}/>
-        <Results name = {state.search} year = {state.year} season ={state.season}/>
+        <Results name = {state.search} year = {state.year} season = {state.season} selected = {selectedCard}/>
+        {(typeof state.selected.id != "undefined") ? <Info selected = {state.selected} close = {close}/>: false}
       </main>
     </div>
   );

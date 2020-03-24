@@ -4,7 +4,7 @@ import Card from './Card'
 const SEARCH_QUERY = `
 query ($page: Int, $search: String, $year: Int, $season: MediaSeason) {
   Page (page: $page) {
-    media (search: $search, seasonYear: $year, season: $season) {
+    media (search: $search, seasonYear: $year, season: $season, type: ANIME) {
       id
       title {
         romaji
@@ -16,6 +16,8 @@ query ($page: Int, $search: String, $year: Int, $season: MediaSeason) {
           large
       }
       bannerImage
+      description
+      genres
     }
   }
 }
@@ -89,10 +91,8 @@ class Results extends React.Component{
         //.map(({media})=> media)
         .reduce((acc, media)=>{
             const {format} = media;
-            if (format === 'TV' || format === 'TV_SHORT' || format === 'MOVIE' || format === 'SPECIAL' || format === 'OVA' || format === 'ONA'){
-                if(acc[format] === undefined) acc[format] = [];
-                acc[format].push(media);
-            }
+            if(acc[format] === undefined) acc[format] = [];
+            acc[format].push(media);
             return acc;
         }, {});
         this.setState( {result: categories} )
@@ -106,7 +106,7 @@ class Results extends React.Component{
         return(
             <div className = "dis">
                 {this.state.result ? Object.keys(this.state.result).map( title => <div key = {title}><h1>{title}</h1> 
-                <div className = "category-row">{this.state.result[title].map( media => <Card result = {media} key = {media.id}></Card>)} </div></div>) : null }
+                <div className = "category-row">{this.state.result[title].map( media => <Card result = {media} key = {media.id} selectedCard = {this.props.selected}></Card>)} </div></div>) : null }
             </div>
         )
     }
