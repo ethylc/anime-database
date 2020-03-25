@@ -50,7 +50,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <h1>Anime Browser</h1>
+      <h1><a href="/">Anime Browser</a></h1>
       </header>
       <main>
         <Search handleInput={handleInput} search={search}/>

@@ -18,6 +18,8 @@ query ($page: Int, $search: String, $year: Int, $season: MediaSeason) {
       bannerImage
       description
       genres
+      season
+      seasonYear
     }
   }
 }
@@ -91,8 +93,10 @@ class Results extends React.Component{
         //.map(({media})=> media)
         .reduce((acc, media)=>{
             const {format} = media;
-            if(acc[format] === undefined) acc[format] = [];
-            acc[format].push(media);
+            if (format !== 'MUSIC'){
+                if(acc[format] === undefined) acc[format] = [];
+                acc[format].push(media);
+            }
             return acc;
         }, {});
         this.setState( {result: categories} )
@@ -105,8 +109,8 @@ class Results extends React.Component{
     render(){
         return(
             <div className = "dis">
-                {this.state.result ? Object.keys(this.state.result).map( title => <div key = {title}><h1>{title}</h1> 
-                <div className = "category-row">{this.state.result[title].map( media => <Card result = {media} key = {media.id} selectedCard = {this.props.selected}></Card>)} </div></div>) : null }
+                {!this.state.result ? null : Object.keys(this.state.result).length === 0 ? <span>No Results Found</span> : Object.keys(this.state.result).map( title => <div key = {title}><h2>{title}</h2> 
+                <div className = "category-row">{this.state.result[title].map( media => <Card result = {media} key = {media.id} selectedCard = {this.props.selected}></Card>)} </div></div>) }
             </div>
         )
     }
