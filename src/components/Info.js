@@ -18,7 +18,8 @@ function Info({selected, close}){
             <button className = "close" onClick = {close}>⇦</button>
             <div className = "content">
                 <h2>{selected.title.english ? selected.title.english : selected.title.romaji}</h2>
-                <h3 style={{color: selected.season === "WINTER"? "cornflowerblue" : selected.season === "SUMMER" ? "khaki": selected.season === "FALL"? "darkorange" : "salmon"}}>{selected.season} • {selected.seasonYear}</h3>
+                <h3 style={{color: selected.season === "WINTER"? "cornflowerblue" : selected.season === "SUMMER" ? "khaki": selected.season === "FALL"? "darkorange" : "salmon"}}>
+                    {selected.season}{selected.season && selected.seasonYear ? " • " : null}{selected.seasonYear}</h3>
                 <div className ="plot">
                     <img src = {selected.coverImage.large} alt = {selected.title.english}/>
                     <p dangerouslySetInnerHTML = {{__html: selected.description}}></p>

@@ -49,17 +49,18 @@ section{
   flex-direction: column;
   cursor: pointer;
   margin:15px;
-  transition: ease-in-out 0.4s;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
-.card:hover{
+.card:hover img{
   transform: scale(1.1);
 }
 
 .card img {
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  transition: ease-in-out 0.4s;
 }
 
 .dis .card h3{
